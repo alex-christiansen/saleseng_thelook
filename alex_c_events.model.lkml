@@ -2,7 +2,7 @@ connection: "thelook_events"
 
 # include: "*.views.lkml"
 include: "views/*.view"
-label: "thelook_events - alex c"
+label: "1) Event Data - Alex"
 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
@@ -21,4 +21,6 @@ label: "thelook_events - alex c"
 #   }
 # }
 
-explore: order_items {}
+explore: order_items {
+  label: "Order Items"
+}
