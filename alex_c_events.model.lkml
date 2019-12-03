@@ -2,7 +2,7 @@ connection: "thelook_events"
 
 # include: "*.views.lkml"
 include: "views/*.view"
-label: "Alex C Label Test"
+label: "Alex C Label Test find this"
 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
