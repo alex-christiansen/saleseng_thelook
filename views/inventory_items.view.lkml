@@ -32,6 +32,18 @@ view: inventory_items {
     sql: ${TABLE}.product_brand ;;
   }
 
+  set: created_date {
+    fields: [
+      created_raw,
+      created_time,
+      created_date,
+      created_week,
+      created_month,
+      created_quarter,
+      created_year
+    ]
+  }
+
   dimension: product_category {
     type: string
     sql: ${TABLE}.product_category ;;
@@ -82,6 +94,17 @@ view: inventory_items {
     sql: ${TABLE}.sold_at ;;
   }
 
+  set: sold_date {
+    fields: [
+      sold_raw,
+      sold_time,
+      sold_date,
+      sold_week,
+      sold_month,
+      sold_quarter,
+      sold_year
+    ]
+  }
   measure: count {
     type: count
     drill_fields: [id, product_name, products.id, products.name, order_items.count]

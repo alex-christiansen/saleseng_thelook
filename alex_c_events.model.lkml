@@ -20,35 +20,19 @@ label: "1) Event Data - Alex"
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
-# datagroup: orders_datagroup {
-#   sql_trigger: SELECT max(id) FROM my_tablename ;;
-#   max_cache_age: "24 hours"
-# }
 #
-# datagroup: customers_datagroup {
-#   sql_trigger: SELECT max(id) FROM my_other_tablename ;;
-# }
-#
-# persist_with: orders_datagroup
-#
-# explore: orders { … }
-#
-# explore: order_facts { … }
-#
-# explore: customer_facts {
-#   persist_with: customers_datagroup
-#   …
-# }
-#
-# explore: customer_background {
-#   persist_with: customers_datagroup
-#   …
-# }
+datagroup: orders_datagroup {
+#   sql_trigger: SELECT max(created_time) FROM order_items ;;
+  max_cache_age: "4 hours"
+}
+# Using Looker references
 
 explore: order_items {
   label: "Order Items"
+  sql_always_where: ${created_date} >= '2019-01-01' ;;
 
   join: inventory_items {
+    fields: [cost, created_date*, product_brand, product_category, product_department, product_name, product_retail_price, sold_date*, count]
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     type: left_outer
     relationship: one_to_one
@@ -64,6 +48,7 @@ explore: order_items {
 
 explore: distribution_centers {
   label: "Distribution Centers"
+  persist_with: orders_datagroup
 
   join: products {
     sql: ${distribution_centers.id} = ${products.distribution_center_id} ;;
@@ -74,6 +59,14 @@ explore: distribution_centers {
 
 explore: events {
   label: "User Events"
+
+  always_filter: {
+    filters: {
+      field: state
+      value: "WA, OR, CA, NM, AZ, CO, MT, ID, NV, UT, WY"
+    }
+  }
+
   join: users {
     sql: ${events.user_id} = ${users.id} ;;
     type: left_outer
