@@ -34,7 +34,7 @@ view: products {
     sql: ${TABLE}.distribution_center_id ;;
   }
 
-  dimension: name {
+  dimension: product_name {
     type: string
     sql: ${TABLE}.name ;;
   }
@@ -51,6 +51,6 @@ view: products {
 
   measure: count {
     type: count
-    drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
+    drill_fields: [id, product_name, distribution_centers.id, distribution_centers.name, inventory_items.count]
   }
 }

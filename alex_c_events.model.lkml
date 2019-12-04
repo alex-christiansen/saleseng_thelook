@@ -52,6 +52,7 @@ explore: distribution_centers {
 
   join: products {
     view_label: "Distribution Centers"
+    fields: [brand, category, cost, department, retail_price, sku, count, product_name]
     sql: ${distribution_centers.id} = ${products.distribution_center_id} ;;
     type: left_outer
     relationship: one_to_many
