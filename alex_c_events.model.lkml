@@ -51,6 +51,7 @@ explore: distribution_centers {
   persist_with: orders_datagroup
 
   join: products {
+    view_label: "Distribution Centers"
     sql: ${distribution_centers.id} = ${products.distribution_center_id} ;;
     type: left_outer
     relationship: one_to_many
